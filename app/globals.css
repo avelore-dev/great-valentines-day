@@ -1,31 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ===== BASE ===== */
 :root {
-  --deep-red: #4a0404;
-  --rose: #ff1744;
-  --pink: #ffc0cb;
-  --cream: #fffef9;
-  --gold: #d4af37;
+  --background: #ffffff;
+  --foreground: #171717;
+  --heart-glow: rgba(239, 68, 68, 0.5);
+  --romantic-pink: #ffc0cb;
+  --romantic-red: #dc2626;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
-  background: #0a0202;
-  color: var(--cream);
-  font-family: 'Montserrat', sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  padding: 0;
+  font-family: 'Bad Script', cursive;
   overflow-x: hidden;
 }
 
-.perspective-\[2000px\] {
-  perspective: 2000px;
+/* ===== КРАСИВЫЕ ШРИФТЫ ===== */
+.font-romantic {
+  font-family: 'Dancing Script', cursive;
+}
+
+.font-elegant {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-handwritten {
+  font-family: 'Bad Script', cursive;
+}
+
+/* ===== 3D HELPERS ===== */
+.parent-perspective {
+  perspective: 1400px;
+  position: relative;
 }
 
 .preserve-3d {
@@ -36,44 +56,329 @@ body {
   backface-visibility: hidden;
 }
 
-/* Текстура акварельной бумаги */
-.watercolor-paper {
-  background: linear-gradient(to bottom right, #fffef9, #faf8f0);
+/* ===== ENVELOPE PARTS ===== */
+.envelope-left {
+  clip-path: polygon(0 0, 50% 50%, 0 100%);
+}
+
+.envelope-right {
+  clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+}
+
+.envelope-bottom {
+  clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+}
+
+/* ===== FRONT MASK ===== */
+.front-mask {
+  background: linear-gradient(135deg, #8b0f17 0%, #a31621 100%);
+  box-shadow: 0 4px 20px rgba(139, 15, 23, 0.3);
+}
+
+/* ===== PHOTO ===== */
+.card-photo {
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+/* ===== АНИМАЦИИ СЕРДЕЧЕК ===== */
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.7;
+  }
+
+  90% {
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heartbeat {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  10%,
+  30% {
+    transform: scale(1.1);
+  }
+
+  20%,
+  40% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--heart-glow),
+      0 0 40px var(--heart-glow),
+      0 0 60px var(--heart-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 30px var(--heart-glow),
+      0 0 60px var(--heart-glow),
+      0 0 90px var(--heart-glow);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float-gentle {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== КЛАССЫ АНИМАЦИЙ ===== */
+.animate-float {
+  animation: float linear infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* ===== КРАСИВЫЕ ГРАДИЕНТЫ ===== */
+.gradient-romantic {
+  background: linear-gradient(135deg,
+      #ffc0cb 0%,
+      #ffb6c1 25%,
+      #ff69b4 50%,
+      #ff1493 75%,
+      #c71585 100%);
+}
+
+.gradient-love {
+  background: linear-gradient(135deg,
+      #ff6b6b 0%,
+      #ee5a6f 25%,
+      #c44569 50%,
+      #4a2c2a 75%,
+      #1e272e 100%);
+}
+
+.gradient-passion {
+  background: linear-gradient(135deg,
+      #eb3349 0%,
+      #f45c43 50%,
+      #fc4a1a 100%);
+}
+
+.gradient-sunset {
+  background: linear-gradient(135deg,
+      #fa709a 0%,
+      #fee140 100%);
+}
+
+/* ===== ЭФФЕКТЫ СВЕЧЕНИЯ ===== */
+.glow-red {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5),
+    0 0 40px rgba(239, 68, 68, 0.3),
+    0 0 60px rgba(239, 68, 68, 0.1);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.5),
+    0 0 40px rgba(236, 72, 153, 0.3),
+    0 0 60px rgba(236, 72, 153, 0.1);
+}
+
+.glow-white {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== ТЕКСТОВЫЕ ЭФФЕКТЫ ===== */
+.text-glow-romantic {
+  text-shadow: 0 0 10px rgba(255, 182, 193, 0.8),
+    0 0 20px rgba(255, 182, 193, 0.6),
+    0 0 30px rgba(255, 182, 193, 0.4),
+    0 0 40px rgba(255, 105, 180, 0.2);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.8),
+    0 0 20px rgba(239, 68, 68, 0.6),
+    0 0 30px rgba(239, 68, 68, 0.4);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== СТИЛИ ДЛЯ КАРТОЧКИ ===== */
+.card-shadow-romantic {
+  box-shadow:
+    0 10px 30px -5px rgba(239, 68, 68, 0.3),
+    0 20px 50px -10px rgba(236, 72, 153, 0.2),
+    0 30px 60px -20px rgba(219, 39, 119, 0.1);
+}
+
+.border-gradient-romantic {
+  border: 2px solid transparent;
+  background-clip: padding-box;
   position: relative;
 }
 
-.watercolor-paper::before {
-  content: "";
+.border-gradient-romantic::before {
+  content: '';
   position: absolute;
   inset: 0;
-  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-  opacity: 0.3;
+  padding: 2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f, #c44569);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   pointer-events: none;
 }
 
-.watercolor-paper::after {
-  content: "";
+/* ===== ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ===== */
+.sparkles {
+  position: relative;
+}
+
+.sparkles::before,
+.sparkles::after {
+  content: '✨';
   position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.08);
-  pointer-events: none;
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: sparkle 2s ease-in-out infinite;
 }
 
-/* Радиальный градиент */
-.bg-gradient-radial {
-  background: radial-gradient(circle, var(--tw-gradient-stops));
+.sparkles::before {
+  top: -10px;
+  left: -20px;
 }
 
-/* Золотой текст */
-.gold-text {
-  background: linear-gradient(to bottom, #f7e1ad 0%, #d4af37 50%, #a67c00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.sparkles::after {
+  bottom: -10px;
+  right: -20px;
+  animation-delay: 1s;
 }
 
-/* Анимация мерцания */
-@keyframes shimmer {
+/* ===== КАСТОМНЫЙ СКРОЛЛБАР ===== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 192, 203, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ee5a6f, #c44569);
+}
+
+/* ===== БУМАЖНАЯ ТЕКСТУРА ===== */
+.paper-texture {
+  background-image:
+    repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px);
+}
+
+/* ===== РОМАНТИЧЕСКИЙ ФОН ===== */
+.romantic-bg {
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255, 192, 203, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 105, 180, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
+}
+
+/* ===== ЭФФЕКТ МЕРЦАНИЯ ===== */
+@keyframes twinkle {
 
   0%,
   100% {
@@ -81,107 +386,49 @@ body {
   }
 
   50% {
-    opacity: 0.8;
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-/* Плавные переходы для изображений */
-img {
-  transition: filter 1s ease-in-out, transform 0.3s ease;
-}
-
-/* Убираем скроллбар но сохраняем функциональность */
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-
-/* Гладкий скроллинг */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Фокус на лицах - улучшенная видимость центральной части фото */
-.photo-focus {
-  position: relative;
-}
-
-.photo-focus::after {
-  content: "";
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 75%;
-  height: 60%;
-  background: radial-gradient(circle, transparent 0%, rgba(255, 192, 203, 0.08) 100%);
-  pointer-events: none;
-  mix-blend-mode: soft-light;
-}
-
-/* Эффект виньетки */
-.vignette {
-  position: relative;
-}
-
-.vignette::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
-  pointer-events: none;
-}
-
-/* Мягкие тени для карточек */
-.card-shadow {
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.4),
-    0 10px 40px rgba(255, 20, 68, 0.15),
-    0 0 80px rgba(255, 192, 203, 0.2);
-}
-
-/* Романтическое свечение */
-.romantic-glow {
-  filter: drop-shadow(0 0 30px rgba(255, 192, 203, 0.4)) drop-shadow(0 0 60px rgba(255, 105, 180, 0.2));
-}
-
-/* Анимация пульсации */
-@keyframes pulse-soft {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-
-  50% {
-    transform: scale(1.05);
     opacity: 1;
   }
 }
 
-.animate-pulse-soft {
-  animation: pulse-soft 3s ease-in-out infinite;
+.twinkle {
+  animation: twinkle 3s ease-in-out infinite;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-  .perspective-\[2000px\] {
-    perspective: 1200px;
+.twinkle-delay-1 {
+  animation-delay: 0.5s;
+}
+
+.twinkle-delay-2 {
+  animation-delay: 1s;
+}
+
+.twinkle-delay-3 {
+  animation-delay: 1.5s;
+}
+
+/* ===== HOVER ЭФФЕКТЫ ===== */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(239, 68, 68, 0.3);
+}
+
+/* ===== КОНФЕТТИ ЭФФЕКТ ===== */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+.confetti {
+  animation: confetti-fall 3s linear infinite;
 }
