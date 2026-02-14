@@ -44,7 +44,7 @@ export default function Home() {
         <OpeningCard onOpen={() => setIsOpened(true)} />
 
         <p className={`text-rose-200/60 font-serif italic text-lg mt-8 text-center max-w-md transition-opacity duration-1000 ${isOpened ? 'opacity-0' : 'opacity-100'}`}>
-          Пусть любовь согревает твоё сердце...
+          Пусть любовь согревает ваши сердца...
         </p>
       </div>
 
@@ -59,7 +59,7 @@ export default function Home() {
           >
             <h1 className="text-5xl md:text-8xl font-serif text-white drop-shadow-[0_0_25px_rgba(255,100,100,0.8)] text-center tracking-wide">
               14 февраля,<br />
-              <span className="text-red-400 font-bold">любимая!</span>
+              <span className="text-red-400 font-bold">родные!</span>
             </h1>
           </motion.div>
         )}
